@@ -10,13 +10,20 @@ public class AudioManager : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
     }
+
     private void OnEnable()
     {
         Obstacle.OnPlayerHit += playCollisionSound;
     }
 
+    private void OnDisable()
+    {
+        Obstacle.OnPlayerHit -= playCollisionSound;
+    }
+
     private void playCollisionSound()
     {
+        if (audioSource == null) return;
         audioSource.PlayOneShot(CollisionSound);
     }
 }
